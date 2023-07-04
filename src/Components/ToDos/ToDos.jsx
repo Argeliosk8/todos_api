@@ -3,19 +3,8 @@ import React from "react";
 
 function ToDos({todos, setTodos}){
     const [url, setUrl] = useState('http://assets.breatheco.de/apis/fake/todos/user/argelio05')
-    function deleteTodo(todoToDelete){
-        console.log(todoToDelete)
-        const updatedTodos = todos.filter((todo)=>todo !== todoToDelete )
-        const emptyTodos = [{label: "no tienes todos", done: false}]
-        setTodos(updatedTodos)
-        if(todos.length > 1){
-            updateApiCall(updatedTodos)
-        } else {
-            updateApiCall(emptyTodos)
-        }
-      }
-
-      const updateApiCall = async (updatedTodos) => {
+    
+    const updateApiCall = async (updatedTodos) => {
     
         try {
           const fetchCall = await fetch(url, {
@@ -28,7 +17,7 @@ function ToDos({todos, setTodos}){
         } catch (error) {
           console.error(error)
         }
-      }
+      }      
 
     function renderTodos (){
         return todos.map((todo, key)=>{
@@ -42,6 +31,18 @@ function ToDos({todos, setTodos}){
             )
         })
     }
+
+    function deleteTodo(todoToDelete){
+        console.log(todoToDelete)
+        const updatedTodos = todos.filter((todo)=>todo !== todoToDelete )
+        const emptyTodos = [{label: "no tienes todos", done: false}]
+        setTodos(updatedTodos)
+        if(todos.length > 1){
+            updateApiCall(updatedTodos)
+        } else {
+            updateApiCall(emptyTodos)
+        }
+      }
     
     return (
         <div className="divtodo">

@@ -3,7 +3,20 @@ import React, {useState} from "react";
 function Form({todos, setTodos, }){
     const [url, setUrl] = useState('http://assets.breatheco.de/apis/fake/todos/user/argelio05')
     const [newTodo, setNewTodo] = useState()
- 
+
+    const updateApiCall = async (apiUpdatedTodos) => {
+      try {
+        const fetchCall = await fetch(url, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(apiUpdatedTodos)
+        })
+        const jsonResponse = await fetchCall.json()
+        console.log(jsonResponse)
+      } catch (error) {
+        console.error(error)
+      }
+    }
     
     function handleChange(e){
         setNewTodo({label: e.target.value, done: false})
@@ -21,21 +34,7 @@ function Form({todos, setTodos, }){
          } else {
           alert("error")
          }
-      }    
-        
-    const updateApiCall = async (apiUpdatedTodos) => {
-        try {
-          const fetchCall = await fetch(url, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(apiUpdatedTodos)
-          })
-          const jsonResponse = await fetchCall.json()
-          console.log(jsonResponse)
-        } catch (error) {
-          console.error(error)
-        }
-      }
+      }          
 
     return (
         <form onSubmit={addTodo}>
