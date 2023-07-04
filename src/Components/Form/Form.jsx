@@ -13,22 +13,22 @@ function Form({todos, setTodos, }){
          if(newTodo.label != '' && !todos.includes(newTodo)){
           e.preventDefault()
           setTodos(prev => [...prev, newTodo])
-          let apiBody = todos
-          apiBody.push(newTodo)
-          console.log(apiBody)
-          updateApiCall(apiBody)
+          let apiUpdatedTodos = todos
+          apiUpdatedTodos.push(newTodo)
+          console.log(apiUpdatedTodos)
+          updateApiCall(apiUpdatedTodos)
           document.getElementById("todoInput").value = ""
          } else {
           alert("error")
          }
       }    
         
-    const updateApiCall = async (apiBody) => {
+    const updateApiCall = async (apiUpdatedTodos) => {
         try {
           const fetchCall = await fetch(url, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(apiBody)
+            body: JSON.stringify(apiUpdatedTodos)
           })
           const jsonResponse = await fetchCall.json()
           console.log(jsonResponse)
@@ -41,7 +41,7 @@ function Form({todos, setTodos, }){
         <form onSubmit={addTodo}>
             <input type="text" onChange={handleChange} id='todoInput'></input>
             <button id='addbutton'>
-            <span class="material-symbols-outlined">add_comment</span>
+            <span className="material-symbols-outlined">add_comment</span>
             </button>
       </form>
     )

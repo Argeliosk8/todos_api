@@ -6,8 +6,13 @@ function ToDos({todos, setTodos}){
     function deleteTodo(todoToDelete){
         console.log(todoToDelete)
         const updatedTodos = todos.filter((todo)=>todo !== todoToDelete )
+        const emptyTodos = [{label: "no tienes todos", done: false}]
         setTodos(updatedTodos)
-        updateApiCall(updatedTodos)
+        if(todos.length > 1){
+            updateApiCall(updatedTodos)
+        } else {
+            updateApiCall(emptyTodos)
+        }
       }
 
       const updateApiCall = async (updatedTodos) => {
@@ -31,7 +36,7 @@ function ToDos({todos, setTodos}){
                 <div key={key}>
                     <p>{todo.label}</p>
                     <button id="deletebutton"onClick={()=>deleteTodo(todo)}>
-                    <span class="material-symbols-outlined">delete_forever</span>
+                    <span className="material-symbols-outlined">delete_forever</span>
                     </button>           
                 </div>
             )
